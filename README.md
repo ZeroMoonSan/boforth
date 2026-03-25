@@ -30,5 +30,5 @@ just release-native
 
 ## Запуск
 ```bash
-    .build/release/boforth script.fs
+.build/release/boforth script.fs
 ```
