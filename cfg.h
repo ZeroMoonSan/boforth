@@ -1,4 +1,12 @@
 
+
+#define MAX_WORDS  1024
+#define MAX_VARS   1024
+#define MAX_CALLS  4096
+#define MAX_BODY   256
+#define STACK_SIZE 256
+
+
 typedef struct {
   Word   *words;
   u32    words_size;

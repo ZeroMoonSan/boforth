@@ -21,11 +21,6 @@
 #define DBG(...)
 #endif
 
-#define MAX_WORDS  1024
-#define MAX_VARS   1024
-#define MAX_CALLS  4096
-#define MAX_BODY   256
-#define STACK_SIZE 256
 
 typedef enum { Int, Float, Str, Call, Pointer } FType;
 char *ftype_names[] = { "Int", "Float", "Str", "Call" };

@@ -11,7 +11,7 @@ pkgs.mkShell {
     gdb
   ];
 
-  buildInputs = with pkgs; [ man-pages ];
+  buildInputs = with pkgs; [];
 
   shellHook = '''';
 }
