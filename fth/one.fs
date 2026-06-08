@@ -2,6 +2,6 @@
 
 "Hello word!" puts
 cr
--5 .
+time .
 
 bye

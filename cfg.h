@@ -69,8 +69,9 @@ static Word builtins[] = {
   { NULL,    NULL                                  },
 };
 
-static void init_module(void) {
-  module.words      = emalloc(MAX_WORDS * sizeof(Word));
+static void 
+init_module(void) {
+  module.words      = ecalloc(MAX_WORDS, sizeof(Word));
   
   Word *b = builtins;
   Word *w = module.words;
@@ -87,5 +88,5 @@ static void init_module(void) {
   module.stack.p   = module.stack.arr;
   
   module.loop_buf.arr = emalloc(STACK_SIZE * sizeof(Val));
-  module.loop_buf.p   = module.stack.arr;
+  module.loop_buf.p   = module.loop_buf.arr;
 }

@@ -4,6 +4,7 @@ portable_flags := "-std=c99 -pedantic -Wall -Wextra -Wshadow -Wconversion -U_FOR
 out := ".build/dev/boforth"
 release_out := ".build/release/boforth"
 portable_out := ".build/release/boforth-portable"
+musl_out := ".build/release/boforth-musl"
 
 build:
 	@mkdir -p .build/dev
@@ -26,6 +27,9 @@ release-fast:
 	clang -std=c99 -O3 -DNDEBUG -flto -fomit-frame-pointer -funroll-loops \
 	      -march=native -mtune=native -Wno-pointer-sign \
 	      *.c -o .build/release/boforth-fast
+musl:
+	@mkdir -p .build/release
+	clang {{release_flags}} -static --target=x86_64-linux-musl *.c -o {{musl_out}}
 
 run *args: build
 	echo "r" | gdb --args {{out}} {{args}}

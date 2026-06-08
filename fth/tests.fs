@@ -1,6 +1,5 @@
 variable passed
 variable failed
-
 : assert-pass
   passed @ 1 + passed !
   " PASS" puts cr

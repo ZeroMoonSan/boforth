@@ -9,6 +9,9 @@ pkgs.mkShell {
     just
     cloc
     gdb
+    musl
+    musl.dev
+    binutils
   ];
 
   buildInputs = with pkgs; [];

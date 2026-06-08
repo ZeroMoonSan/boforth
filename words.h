@@ -1,4 +1,6 @@
 
+
+
 static void 
 bf_puts(void) 
 {
@@ -159,9 +161,11 @@ bf_if(void)
 {
   Val v = SPOP(&module.stack);
   if (v.f <= 0) {
-    while (module.calls->head != module.calls->tail) {
+    int depth = 1;
+    while (depth && module.calls->head != module.calls->tail) {
       Val x = qfpop(module.calls);
-      if (x.fn == bf_then) break;
+      if (x.fn == bf_if) depth++;
+      if (x.fn == bf_then) depth--;
     }
   }
 }
@@ -174,7 +178,7 @@ bf_do(void)
 {
   Val a = SPOP(&module.stack);
   Val b = SPOP(&module.stack);
-  int c = (int)(a.f - b.f);
+  int c = (int)(b.f - a.f);
   Val buf[MAX_BODY];
   Val *p = buf;
   while (module.calls->head != module.calls->tail) {
@@ -183,13 +187,13 @@ bf_do(void)
     if (p >= buf + MAX_BODY) die("body overflow");
     *p++ = v;
   }
-  for (Val *q = buf; q < p; q++)
-    DBG("buf: %s\n", getfnname(q->fn));
+  if (c <= 0) return;
   for (int i = 0; i < c; i++) {
-    Val *q = p - 1;
-    while (q >= buf) {
+    Val *q = p;
+    while (q > buf) {
+      q--;
       DBG("q=%p buf=%p val=%g\n", (void*)q, (void*)buf, q->f);
-      qfpush(module.calls, *q--);
+      qfpush(module.calls, *q);
     }
   }
 }
@@ -394,4 +398,3 @@ bf_key(void)
   v.f = (f32)getchar();
   SPUSH(&module.stack, v);
 }
-
